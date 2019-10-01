@@ -22,7 +22,7 @@ def isDeleteFile(choose_file):
 print("Read a file    --- 1")
 print("Add a file     --- 2")
 print("Add content    --- 3")
-print("Delete content --- 4")
+print("Delete file --- 4")
 choice = input("Enter your choice: ")
 choose_file = input("Filename: ")
 
