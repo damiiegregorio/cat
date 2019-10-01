@@ -16,7 +16,7 @@ def isWriteContent(choose_file):
 
 print("Read a file    --- 1")
 print("Add a file     --- 2")
-print("Add content  --- 3")
+print("Add content    --- 3")
 choice = input("Enter your choice: ")
 choose_file = input("Filename: ")
 
