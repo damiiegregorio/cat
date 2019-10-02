@@ -21,6 +21,15 @@ def append_content(file):
         f.write("\n{}".format(file_content))
         print("{} is updated.".format(file))
 
+"""Append a file"""
+def concat_file(file):
+    file_to_concat = input("Enter file to be appended to: ")
+    fin = open(file, "r")
+    concat_result = fin.read()
+    fout = open(file_to_concat, "a")
+    fout.write(concat_result)
+    print("Concat succes!")
+
 """Delete a file"""
 def delete_file(file):
     os.remove(file)
@@ -33,6 +42,7 @@ def main():
     group.add_argument("-w", "--write", help="Create new file.", action="store_true")
     group.add_argument("-a", "--append", help="Append a file.", action="store_true")
     group.add_argument("-r", "--read", help="Read a file.", action="store_true")
+    group.add_argument("-c", "--concat", help="Concat files.", action="store_true")
     group.add_argument("-d", "--delete", help="Delete a file.", action="store_true")
     parser.add_argument("file", help="Read a file.", type=str)
 
@@ -46,6 +56,8 @@ def main():
         append_content(args.file)
     elif args.read:
         read_file(args.file)
+    elif args.concat:
+        concat_file(args.file)
     elif args.delete:
         delete_file(args.file)
     else:
