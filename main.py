@@ -1,39 +1,55 @@
-#file objects
+import argparse
 import os
 
-def isReadFile(choose_file):
-    with open(choose_file, 'r') as f:
+######### FUNCTIONS #########
+
+"""Read a file"""
+def read_file(file):
+    with open(file, 'r') as f:
         f_content = f.read()
         print(f_content, end='')
 
-def isWriteFile(choose_file):
-    with open(choose_file, 'w') as f:
-        pass
+"""Write a file"""
+def write_file(file):
+    with open(file, 'w+') as f:
+        print("{} file created.".format(file))
 
-def isWriteContent(choose_file):
+"""Append a file"""
+def append_content(file):
     file_content = input("Enter content: ")
-    with open(choose_file, 'a+') as f:
-        f.write(file_content)
+    with open(file, 'a+') as f:
+        f.write("\n{}".format(file_content))
+        print("{} is updated.".format(file))
 
-def isDeleteFile(choose_file):
-    os.remove(choose_file)
-    print("{} file deleted.".format(choose_file))
+"""Delete a file"""
+def delete_file(file):
+    os.remove(file)
+    print("{} file deleted.".format(file))
 
-print("Read a file    --- 1")
-print("Add a file     --- 2")
-print("Add content    --- 3")
-print("Delete file --- 4")
-choice = input("Enter your choice: ")
-choose_file = input("Filename: ")
+def main():
+    """Argument Parser"""
+    parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("-w", "--write", help="Create new file.", action="store_true")
+    group.add_argument("-a", "--append", help="Append a file.", action="store_true")
+    group.add_argument("-r", "--read", help="Read a file.", action="store_true")
+    group.add_argument("-d", "--delete", help="Delete a file.", action="store_true")
+    parser.add_argument("file", help="Read a file.", type=str)
 
-if choice == "1":
-    ans = isReadFile(choose_file)
-elif choice == "2":
-    ans = isWriteFile(choose_file)
-    print("{} file created.".format(choose_file))
-elif choice == "3":
-    ans = isWriteContent(choose_file)
-elif choice == "4":
-    ans = isDeleteFile(choose_file)
-else:
-    print("Error")
+    args = parser.parse_args()
+    print("------ {} ------".format(args.file))
+
+    """Function arguments"""
+    if args.write:
+         write_file(args.file)
+    elif args.append:
+        append_content(args.file)
+    elif args.read:
+        read_file(args.file)
+    elif args.delete:
+        delete_file(args.file)
+    else:
+        print("Error.")
+
+if __name__ == "__main__": 
+    main()
